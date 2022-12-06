@@ -3,6 +3,7 @@ import { Row, Col, Image } from 'react-bootstrap';
 import { useParams } from "react-router-dom";
 import './Details.css';
 import { Container } from 'react-bootstrap';
+import Review from './Review';
 
 
 function Details() {
@@ -26,18 +27,21 @@ function Details() {
   return (
     <div style={{ marginTop: '35px' }}>
       {details ? (
-         <Container>
-        <Row className='' >
-         
+        <Container>
+          <Row className='c' >
+
             <Col lg={4}  >
               <Image className="image" src={details.photograph} style={{ marginTop: '40px' }} fluid />
             </Col>
-            <Col lg={6} style={{ marginTop: '70px' }}>
-              <h1 className='fw-bold'>{details.name}</h1>
+            <Col lg={4} style={{ marginTop: '200px' }} className=''>
+              <h1 className='fw-bold '>{details.name}</h1>
               <h5 className='mb-4'>{details.neighborhood}</h5>
               <h4>Cuisine: {details.cuisine_type}</h4>
               <h5 className='mt-3 mb-3 '>Address: {details.address}</h5>
-              <div className=' ps-5 pt-3'>
+              
+            </Col>
+            <Col  lg={4} style={{ marginTop: '100px' }} >
+            <div className=' py-5 ps-5 pe-2 shadow '  >
                 <h6 className='fw-bold'>Working Time:</h6>
                 <p>Monday: {details.operating_hours.Monday}</p>
                 <p>Tuesday: {details.operating_hours.Tuesday}</p>
@@ -48,13 +52,15 @@ function Details() {
                 <p>Sunday: {details.operating_hours.Sunday}</p>
               </div>
 
-              <div>
-                <h4 className='fw-bold'>Review:</h4>
-                <p>{details.reviews.name}</p>
-              </div>
             </Col>
 
-        </Row>
+            <Row className=' mt-5 mb-5'>
+              <div className='shadow p-4 mt-5 mb-5 bg-white'>
+                <Review data={details.reviews} />
+              </div>
+            </Row>
+
+          </Row>
         </Container>
       ) : null
 

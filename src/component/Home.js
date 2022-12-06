@@ -3,25 +3,31 @@ import { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
 import { Row, Col } from "react-bootstrap";
 import { Container } from 'react-bootstrap';
-
-
+import {listRestaurants} from '../action/restaurantAction'
+import {useDispatch,useSelector} from 'react-redux'
 import "../../src/App.css";
 import Footer from "./Footer";
 
 function Home() {
-  const [restuarant, setRestuarant] = useState([]);
+  // const [restuarant, setRestuarant] = useState([]);
+
+  const dispatch=useDispatch()
+  const data=useSelector(state=>state.restaurantList)
+  const {restaurant}=data
 
 
-  const fetchData = async () => {
-    await fetch("./restaurants.json")
-      .then((res) => res.json())
-      .then((data) => setRestuarant(data.restaurants));
-  };
+
+  // const fetchData = async () => {
+  //   await fetch("./restaurants.json")
+  //     .then((res) => res.json())
+  //     .then((data) => setRestuarant(data.restaurants));
+  // };
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
+    dispatch(listRestaurants())
   }, []);
-  console.log(restuarant);
+  console.log(data);
 
  
 
@@ -30,8 +36,8 @@ function Home() {
       <div className="HomePage "></div>
     <Container>
       <Row>
-        {restuarant
-          ? restuarant.map((item) => (
+        {restaurant
+          ? restaurant.restaurants.map((item) => (
               <Col sm={12} md={6} lg={3}>
                 <RestaurantCard restuarantData={item} />
               </Col>
